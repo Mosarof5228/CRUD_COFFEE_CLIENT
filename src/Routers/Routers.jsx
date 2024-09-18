@@ -1,3 +1,4 @@
+import AddCoffe from "../Pages/Home/AddCoffe";
 import AddCoffee from "../Pages/Home/AddCoffee";
 import HomePage from "../Pages/Home/HomePage";
 import Login from "../Pages/Login/Login";
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/addCoffe',
+                element: <AddCoffe></AddCoffe>
             }
         ]
     },
