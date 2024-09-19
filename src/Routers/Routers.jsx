@@ -3,9 +3,9 @@ import AddCoffee from "../Pages/Home/AddCoffee";
 import HomePage from "../Pages/Home/HomePage";
 import Login from "../Pages/Login/Login";
 import Root from "../Layout/Root";
-
-import { createBrowserRouter } from "react-router-dom";
 import ShowAllCoffee from "../Pages/Home/ShowAllCoffee";
+import UpdateCoffee from "../Pages/Home/UpdateCoffee";
+import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +33,11 @@ export const router = createBrowserRouter([
         element: <ShowAllCoffee></ShowAllCoffee>,
         loader: () => fetch("http://localhost:5000/coffees"),
       },
+      {
+        path: '/updateCoffee/:id',
+        element: <UpdateCoffee></UpdateCoffee>,
+        loader: ({ params }) => fetch(`http://localhost:5000/coffees/${params.id}`)
+      }
     ],
   },
 ]);

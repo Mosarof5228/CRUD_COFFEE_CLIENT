@@ -1,5 +1,26 @@
-const CoffeeCrad = ({ coffee }) => {
-  const { name, quantity, brand, color, taste, madein } = coffee;
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
+const CoffeeCrad = ({ coffee, coffees, setCoffees }) => {
+  const { name, brand, _id } = coffee;
+  const handleDelete = (_id) => {
+    console.log("delete coming", _id)
+    fetch(`http://localhost:5000/coffees/${_id}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.deletedCount > 0) {
+          alert("Deleted Successfully")
+          const remainIngCoffees = coffees.filter(coffee => coffee._id !== _id)
+          setCoffees(remainIngCoffees)
+
+        }
+      })
+  }
+
+
   return (
     <div className="card card-side bg-base-100 shadow-xl grid grid-cols-3 border p-4">
       <figure className="">
@@ -21,12 +42,19 @@ const CoffeeCrad = ({ coffee }) => {
 
         <div className="join join-vertical gap-2">
           <button className="btn join-item btn-accent">S.Dtls</button>
-          <button className="btn join-item btn-error">Delete</button>
-          <button className="btn join-item btn-primary">Edit</button>
+          <button onClick={() => handleDelete(_id)} className="btn join-item btn-error">Delete</button>
+          <Link to={`/updateCoffee/${_id}`}>
+            <button className="btn join-item btn-primary">Edit</button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
+CoffeeCrad.propTypes = {
+  setCoffees: PropTypes.node,
+  coffees: PropTypes.node,
+  coffee: PropTypes.node
+}
 
 export default CoffeeCrad;
