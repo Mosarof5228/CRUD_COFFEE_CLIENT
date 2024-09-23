@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-const Login = () => {
-  const { userLogin } = useContext(AuthContext);
+
+const SignUp = () => {
+  const { userCreate } = useContext(AuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -11,13 +12,13 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(name, email, password);
-    userLogin(email, password)
+    userCreate(email, password)
       .then((result) => {
         console.log(result.user);
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "User Login Successfully",
+          title: "User Created Successfully",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -36,10 +37,22 @@ const Login = () => {
     <div className="hero bg-base-200  min-h-screen">
       <div className="hero-content flex-col ">
         <div className="text-center ">
-          <h1 className="text-5xl font-bold mb-4">Please LogIn</h1>
+          <h1 className="text-5xl font-bold mb-4">Please SignUp</h1>
         </div>
         <div className="card bg-base-100 w-full   shadow-2xl">
           <form onSubmit={handleSubmit} className="card-body ">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -69,17 +82,28 @@ const Login = () => {
                 </a>
               </label>
             </div>
-
+            <div className="form-control">
+              <label className="cursor-pointer label">
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  className="checkbox checkbox-info"
+                />
+                <span className="label-text">
+                  Please Accept Terms And Condition
+                </span>
+              </label>
+            </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Log In</button>
+              <button className="btn btn-primary">Create User</button>
             </div>
           </form>
           <div className="text-center px-4 pb-8">
             <p>
               <small>
-                Are you new Here?Please{" "}
-                <Link to="/signUp" className="link link-primary">
-                  SignUp First
+                Already have An Account?Please
+                <Link to="/logIn" className="link link-primary">
+                  Login Fast!
                 </Link>
               </small>
             </p>
@@ -90,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
