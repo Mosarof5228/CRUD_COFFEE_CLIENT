@@ -1,9 +1,11 @@
 import { useContext } from "react";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+
 const Login = () => {
-  const { userLogin } = useContext(AuthContext);
+  const { userLogin, goggleLogin } = useContext(AuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -29,6 +31,16 @@ const Login = () => {
           text: "Something went wrong!",
           footer: '<a href="#">Why do I have this issue?</a>',
         });
+      });
+  };
+
+  const handlegoggleLogin = () => {
+    goggleLogin()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .then((error) => {
+        console.log(error);
       });
   };
 
@@ -83,6 +95,10 @@ const Login = () => {
                 </Link>
               </small>
             </p>
+            <div className="flex gap-8 justify-center py-4 mt-4 text-4xl">
+              <FaGoogle onClick={handlegoggleLogin} className="text-red-600" />
+              <FaFacebook className="text-[#3b5998]" />
+            </div>
           </div>
         </div>
       </div>
