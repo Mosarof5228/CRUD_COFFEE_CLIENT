@@ -15,6 +15,9 @@ const SignUp = () => {
     userCreate(email, password)
       .then((result) => {
         console.log(result.user);
+        const createdTime = result.user?.metadata?.creationTime;
+
+        const user = { email, createdTime: createdTime };
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -22,6 +25,27 @@ const SignUp = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "stored into database",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
       })
       .catch((error) => {
         Swal.fire({
