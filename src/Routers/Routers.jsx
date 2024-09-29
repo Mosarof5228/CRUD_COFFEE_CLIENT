@@ -4,9 +4,10 @@ import HomePage from "../Pages/Home/HomePage";
 import Login from "../Pages/Login/Login";
 import Root from "../Layout/Root";
 import ShowAllCoffee from "../Pages/Home/ShowAllCoffee";
-import UpdateCoffee from "../Pages/Home/UpdateCoffee";
-import { createBrowserRouter } from "react-router-dom";
 import SignUp from "../Pages/SignUp/SignUp";
+import UpdateCoffee from "../Pages/Home/UpdateCoffee";
+import Users from "../Pages/Home/Users";
+import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,11 @@ export const router = createBrowserRouter([
         path: "/signUp",
         element: <SignUp></SignUp>,
       },
+      {
+        path: '/users',
+        element: <Users></Users>,
+        loader: () => fetch('http://localhost:5000/users')
+      }
     ],
   },
 ]);
