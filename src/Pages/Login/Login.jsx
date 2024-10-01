@@ -16,6 +16,22 @@ const Login = () => {
     userLogin(email, password)
       .then((result) => {
         console.log(result.user);
+        const newUser = {
+          email,
+          lastLoggedAt: result.user.metadata?.lastLoginAt,
+        };
+        fetch("http://localhost:5000/users", {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+
         Swal.fire({
           position: "top-end",
           icon: "success",
